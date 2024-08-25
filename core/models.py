@@ -6,6 +6,7 @@ import uuid
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
+    image = models.ImageField(upload_to='category_images',blank=True,null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -19,6 +20,7 @@ class Food(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True,null=True)
     price = models.FloatField(default=9.9)
+    image = models.ImageField(upload_to='images',blank=True,null=True)
     food_id = models.UUIDField(default=uuid.uuid4())
     active = models.BooleanField(default=True)
     timestamp = models.DateTimeField(default=datetime.datetime.now())
