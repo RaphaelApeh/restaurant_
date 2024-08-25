@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+    <!-- fOOD sEARCH Section Starts Here -->
+    <section class="food-search text-center">
+        <div class="container">
+            
+            <form action="{% url 'search' %}" method="GET">
+                <input type="search" name="q" placeholder="Search for Food.." required>
+                <input type="submit" name="submit" value="Search" class="btn btn-primary">
+            </form>
+
+        </div>
+    </section>
+    <!-- fOOD sEARCH Section Ends Here -->
+
+    <!-- CAtegories Section Starts Here -->
+    <section class="categories">
+        <div class="container">
+            <h2 class="text-center">Explore Foods</h2>
+            {% for category in categories %}
+            <a href="category/?category={{category.name}}">
+            <div class="box-3 float-container">
+                <img src="{% static 'images/pizza.jpg' %}" alt="Pizza" class="img-responsive img-curve">
+
+                <h3 class="float-text text-white">{{category.name}}</h3>
+            </div>
+            </a>
+            {% endfor %}
+            <div class="clearfix"></div>
+        </div>
+    </section>
+    <!-- Categories Section Ends Here -->
+
+    <!-- fOOD MEnu Section Starts Here -->
+    <section class="food-menu">
+        <div class="container">
+            <h2 class="text-center">Food Menu</h2>
+            {% for food in foods %}
+                <div class="food-menu-box">
+                    <div class="food-menu-img">
+                        <img src="{% static 'images/menu-pizza.jpg' %}" alt="Chicke Hawain Pizza" class="img-responsive img-curve">
+                    </div>
+
+                    <div class="food-menu-desc">
+                        <h4>{{food.name|title}}</h4>
+                        <p class="food-price">${{food.price}}</p>
+                        <p class="food-price">{{food.timestamp|timeuntil}}</p>
+                        <p class="food-detail">
+                           {{food.description}}
+                        </p>
+                        <br>
+
+                        <a href="{{food.get_absolute_url}}" class="btn btn-primary">Order Now</a>
+                    </div>
+                </div>
+            {% endfor %}
+            <div class="clearfix"></div>
+        </div>
+
+        <p class="text-center">
+            <a href="#">See All Foods</a>
+        </p>
+    </section>
+{% endblock %}

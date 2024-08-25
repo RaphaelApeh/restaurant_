@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+    <!-- fOOD sEARCH Section Starts Here -->
+    <section class="food-search text-center">
+        <div class="container">
+            
+            <h2>Foods on Your Search <a href="#" class="text-white">"{{query}}"</a></h2>
+
+        </div>
+    </section>
+    <!-- fOOD sEARCH Section Ends Here -->
+
+
+
+    <!-- fOOD MEnu Section Starts Here -->
+    <section class="food-menu">
+        <div class="container">
+            <h2 class="text-center">Food Menu</h2>
+            {% for instance in foods %}
+            <div class="food-menu-box">
+                <div class="food-menu-img">
+                    <img src="{% static 'images/menu-pizza.jpg' %}" alt="Chicke Hawain Pizza" class="img-responsive img-curve">
+                </div>
+
+                <div class="food-menu-desc">
+                    <h4>{{instance.name|title}}</h4>
+                    <p class="food-price">${{instance.price}}</p>
+                    <p class="food-detail">
+                        {{instance.description}}
+                    </p>
+                    <br>
+
+                    <a href="{{instance.get_absolute_url}}" class="btn btn-primary">Order Now</a>
+                </div>
+            </div>
+            {% empty %}
+            <center><h1>No Item Found!</h1></center>
+            {% endfor %}
+            <div class="clearfix"></div>
+
+            
+
+        </div>
+
+    </section>
+    <!-- fOOD Menu Section Ends Here -->
+
+{% endblock %}

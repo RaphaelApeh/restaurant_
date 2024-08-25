@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <!-- CAtegories Section Starts Here -->
+    <section class="categories">
+        <div class="container">
+            <h2 class="text-center">Explore Foods</h2>
+            {% for category in categories %}
+            <a href="/category/?category={{category.name}}">
+            <div class="box-3 float-container">
+                <img src="{% static 'images/pizza.jpg' %}" alt="Pizza" class="img-responsive img-curve">
+
+                <h3 class="float-text text-white">{{category.name}}</h3>
+            </div>
+            </a>
+            {% endfor %}
+            <div class="clearfix"></div>
+        </div>
+    </section>
+    <!-- Categories Section Ends Here -->
+
+{% endblock %}

@@ -1,0 +1,6 @@
+__pycache__/
+restaurant/
+__pycache__
+restaurant
+db.sqlite3
+.env
