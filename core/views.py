@@ -4,7 +4,7 @@ from django.db.models import Q
 from .models import *
 
 def homepage_view(request):
-    foods = Food.objects.filter(active=True)
+    foods = Food.objects.filter(active=True)[:9]
     categories = Category.objects.all()
     context = {'foods':foods,'categories':categories}
     return render(request,'index.html',context)
@@ -38,3 +38,10 @@ def all_category_view(request):
         'categories':categories
     }
     return render(request,'categories.html',context)
+
+def all_foods_view(request):
+    foods = Food.objects.filter(active=True)
+    context = {
+        'foods':foods
+    }
+    return render(request,'foods.html',context)

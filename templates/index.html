@@ -22,8 +22,7 @@
             {% for category in categories %}
             <a href="category/?category={{category.name}}">
             <div class="box-3 float-container">
-                <img src="{% static 'images/pizza.jpg' %}" alt="Pizza" class="img-responsive img-curve">
-
+                <img src="{{category.image.url}}" alt="Pizza" class="img-responsive img-curve">
                 <h3 class="float-text text-white">{{category.name}}</h3>
             </div>
             </a>
@@ -40,7 +39,7 @@
             {% for food in foods %}
                 <div class="food-menu-box">
                     <div class="food-menu-img">
-                        <img src="{% static 'images/menu-pizza.jpg' %}" alt="Chicke Hawain Pizza" class="img-responsive img-curve">
+                        <img src="{{food.image.url}}" alt="Pizza" class="img-responsive img-curve">
                     </div>
 
                     <div class="food-menu-desc">
@@ -60,7 +59,7 @@
         </div>
 
         <p class="text-center">
-            <a href="#">See All Foods</a>
+            <a href="{% url 'foods' %}">See All Foods</a>
         </p>
     </section>
 {% endblock %}

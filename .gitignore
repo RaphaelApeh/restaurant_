@@ -4,3 +4,4 @@ __pycache__
 restaurant
 db.sqlite3
 .env
+migrations/0001_initial.py
