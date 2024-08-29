@@ -56,9 +56,19 @@ def all_foods_view(request):
 def ordering_view(request,food_id):
     food = get_object_or_404(Food,food_id=food_id)
     if request.method == 'POST':
+        quantity = request.POST['qty']
+        fill_name = request.POST['full-name']
+        email = request.POST['email']
         phone_number = request.POST['contact']
         address = request.POST['address']
-        print(phone_number,address)
+        Order.objects.create(
+            food=food,
+            quantity=quantity,
+            full_name=fill_name,
+            phone_number=phone_number,
+            email=email,
+            address=address
+        )
         request.user.profile.foods.add(food)
         return redirect(request.META.get('HTTP_REFERER'))
 
