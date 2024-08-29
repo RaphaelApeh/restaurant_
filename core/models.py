@@ -30,3 +30,22 @@ class Food(models.Model):
     
     def get_absolute_url(self):
         return reverse('detail',kwargs={'food_id':self.food_id})
+    
+class Order(models.Model):
+    food = models.ForeignKey(Food,on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=1)
+    full_name = models.CharField(max_length=100)
+    phone_number = models.CharField(max_length=100)
+    email = models.EmailField()
+    address = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return f'{self.food.name} ~ {self.full_name}'
+
+
+class Profile(models.Model):
+    user = models.OneToOneField('auth.User',on_delete=models.CASCADE)
+    foods = models.ManyToManyField(Food,blank=True)
+
+    def __str__(self):
+        return self.user.username

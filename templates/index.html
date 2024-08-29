@@ -45,9 +45,8 @@
                     <div class="food-menu-desc">
                         <h4>{{food.name|title}}</h4>
                         <p class="food-price">${{food.price}}</p>
-                        <p class="food-price">{{food.timestamp|timeuntil}}</p>
                         <p class="food-detail">
-                           {{food.description}}
+                           {{food.description|truncatewords:7}}
                         </p>
                         <br>
 

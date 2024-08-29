@@ -32,6 +32,18 @@
                     <li>
                         <a href="https://github/RaphaelApeh">Contact Me</a>
                     </li>
+                    {% if request.user.is_anonymous %}
+                    <li>
+                        <a href="{% url 'login' %}">LogIn</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'signup' %}">SignUp</a>
+                    </li>
+                    {% else %}
+                    <li>
+                        <a href="{% url 'logout' %}">Logout</a>
+                    </li>
+                    {% endif %}
                 </ul>
             </div>
 

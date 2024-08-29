@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="food-search">
+    <div class="container">
+        
+        <h2 class="text-center text-white">Login with your credencials.</h2>
+        {% for message in messages  %}
+        <h2 style="color: red;" class="text-center">{{message}}</h2>
+        {% endfor %}
+        <form action="" method="POST" class="order">
+            {% csrf_token %}
+            
+            <fieldset>
+                <div class="order-label">Username or Email</div>
+                <input type="text" name="username" placeholder="E.g. Vijay Thapa" class="input-responsive" required>
+
+
+                <div class="order-label">Password</div>
+                <input type="password" name="password" placeholder="*********" class="input-responsive" required>
+
+                <input type="submit" name="submit" value="Login" class="btn btn-primary">
+            </fieldset>
+
+        </form>
+        <center><small>Don't have an account? <a href="{% url 'signup' %}">Signup</a></small></center>
+    </div>
+</section>
+{% endblock %}

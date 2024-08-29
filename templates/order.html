@@ -4,16 +4,22 @@
 <!-- fOOD sEARCH Section Starts Here -->
     <section class="food-search">
         <div class="container">
-            
+            {% if food in request.user.profile.foods.all %}
+            <h2 class="text-center text-white">Is in your order list.</h2>
+            <form action="" method="POST" class="order">
+                {% csrf_token %}
+                <input type="submit" name="submit" value="cancel order?" class="btn btn-primary">
+            </form>
+            {% else %}
             <h2 class="text-center text-white">Fill this form to confirm your order.</h2>
 
-            <form action="" method="POST" class="order">
+            <form action="{% url 'ordering' food.food_id %}" method="POST" class="order">
                 {% csrf_token %}
                 <fieldset>
                     <legend>Selected Food</legend>
 
                     <div class="food-menu-img">
-                        <img src="{% static 'images/menu-pizza.jpg' %}" alt="Chicke Hawain Pizza" class="img-responsive img-curve">
+                        <img src="{{food.image.url}}" alt="Chicke Hawain Pizza" class="img-responsive img-curve">
                     </div>
     
                     <div class="food-menu-desc">
@@ -21,7 +27,7 @@
                         <p class="food-price">${{food.price}}</p>
 
                         <div class="order-label">Quantity</div>
-                        <input type="number" name="qty" class="input-responsive" value="1" required>
+                        <input type="number" name="qty" class="input-responsive" value="1" maxlength="5" required>
                         
                     </div>
 
@@ -30,22 +36,23 @@
                 <fieldset>
                     <legend>Delivery Details</legend>
                     <div class="order-label">Full Name</div>
-                    <input type="text" name="full-name" placeholder="E.g. Vijay Thapa" class="input-responsive" required>
+                    <input value="{{request.user.username}}" type="text" name="full-name" placeholder="E.g. Vijay Thapa" class="input-responsive" required>
 
                     <div class="order-label">Phone Number</div>
                     <input type="tel" name="contact" placeholder="E.g. 9843xxxxxx" class="input-responsive" required>
 
                     <div class="order-label">Email</div>
-                    <input type="email" name="email" placeholder="E.g. hi@vijaythapa.com" class="input-responsive" required>
+                    <input type="email" name="email" placeholder="E.g. hi@vijaythapa.com" value="{{user.email}}" class="input-responsive" required>
 
                     <div class="order-label">Address</div>
                     <textarea name="address" rows="10" placeholder="E.g. Street, City, Country" class="input-responsive" required></textarea>
-
+                    {% if request.user.is_authenticated %}
                     <input type="submit" name="submit" value="Confirm Order" class="btn btn-primary">
+                    {% endif %}
                 </fieldset>
 
             </form>
-
+            {% endif %}
         </div>
     </section>
     <!-- fOOD sEARCH Section Ends Here -->
