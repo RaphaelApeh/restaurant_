@@ -9,6 +9,8 @@
             <form action="" method="POST" class="order">
                 {% csrf_token %}
                 <input type="submit" name="submit" value="cancel order?" class="btn btn-primary">
+                <br>&nbsp;
+                <input type="submit" name="submit" value="Check" class="btn btn-primary">
             </form>
             {% else %}
             <h2 class="text-center text-white">Fill this form to confirm your order.</h2>
