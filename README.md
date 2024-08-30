@@ -3,3 +3,5 @@
 ```bash
 pip install -r requirements.txt
 ``` 
+
+![Alt](static/images/bg.jpg)
