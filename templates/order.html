@@ -6,12 +6,11 @@
         <div class="container">
             {% if food in request.user.profile.foods.all %}
             <h2 class="text-center text-white">Is in your order list.</h2>
-            <form action="" method="POST" class="order">
+            <form action="{% url 'ordering' food.food_id %}" method="POST" class="order">
                 {% csrf_token %}
-                <input type="submit" name="submit" value="cancel order?" class="btn btn-primary">
-                <br>&nbsp;
-                <input type="submit" name="submit" value="Check" class="btn btn-primary">
+                <button type="submit" name="action" value="list">Cncel ordering ?</button>
             </form>
+            <center><h1>{{ time.date }}</h1></center>
             {% else %}
             <h2 class="text-center text-white">Fill this form to confirm your order.</h2>
 
@@ -50,6 +49,8 @@
                     <textarea name="address" rows="10" placeholder="E.g. Street, City, Country" class="input-responsive" required></textarea>
                     {% if request.user.is_authenticated %}
                     <input type="submit" name="submit" value="Confirm Order" class="btn btn-primary">
+                    {% else %}
+                    <center><small>Login to <a href="{% url 'login' %}">Login</a></small></center>
                     {% endif %}
                 </fieldset>
 

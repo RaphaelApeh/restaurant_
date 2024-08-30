@@ -4,6 +4,7 @@ from django.db.models import Q
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
+from django.utils import timezone
 from .models import *
 from .backends import authenticate
 
@@ -17,8 +18,11 @@ def homepage_view(request):
 
 def food_detail_or_order_view(request,food_id):
     food = get_object_or_404(Food,food_id=food_id)
+    order = Order.objects.get(food=food)
+    end_time = order.timestamp + timezone.timedelta(days=1)
     context = {
-        'food':food
+        'food':food,
+        'time':end_time
     }
     return render(request,'order.html',context)
 
@@ -61,7 +65,7 @@ def ordering_view(request,food_id):
         email = request.POST['email']
         phone_number = request.POST['contact']
         address = request.POST['address']
-        Order.objects.create(
+        order = Order.objects.create(
             food=food,
             quantity=quantity,
             full_name=fill_name,
@@ -69,6 +73,9 @@ def ordering_view(request,food_id):
             email=email,
             address=address
         )
+        cancel = request.POST.get('action')
+        if cancel == 'list':
+            request.user.profile.foods.remove(food)
         request.user.profile.foods.add(food)
         return redirect(request.META.get('HTTP_REFERER'))
 
