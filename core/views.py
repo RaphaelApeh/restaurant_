@@ -3,6 +3,7 @@ from django.contrib.auth import login,logout,get_user_model
 from django.db.models import Q
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.http import Http404
 
 from django.utils import timezone
 from .models import *
@@ -12,6 +13,7 @@ User = get_user_model()
 
 def homepage_view(request):
     foods = Food.objects.filter(active=True)[:9]
+    # print(dir(request.user))
     categories = Category.objects.all()
     context = {'foods':foods,'categories':categories}
     return render(request,'index.html',context)
@@ -19,6 +21,7 @@ def homepage_view(request):
 def food_detail_or_order_view(request,food_id):
     food = get_object_or_404(Food,food_id=food_id)
     order = Order.objects.get(food=food)
+    print(request.GET)
     end_time = order.timestamp + timezone.timedelta(days=1)
     context = {
         'food':food,
@@ -73,12 +76,20 @@ def ordering_view(request,food_id):
             email=email,
             address=address
         )
-        cancel = request.POST.get('action')
-        if cancel == 'list':
-            request.user.profile.foods.remove(food)
+        # cancel = request.POST.get('action')
+        # if cancel == 'list':
+        #     request.user.profile.foods.remove(food)
         request.user.profile.foods.add(food)
         return redirect(request.META.get('HTTP_REFERER'))
 
+def remove_order_view(request,food_id):
+    if request.method == 'POST':
+        order = get_object_or_404(Order,food__food_id=food_id)
+    elif request.method == 'GET':
+        raise Http404
+"""
+Authentication Signup,Login,Logout Views
+"""
 def login_view(request):
     if request.method == 'POST':
         obj =  request.POST['username']

@@ -6,7 +6,7 @@
         <div class="container">
             {% if food in request.user.profile.foods.all %}
             <h2 class="text-center text-white">Is in your order list.</h2>
-            <form action="{% url 'ordering' food.food_id %}" method="POST" class="order">
+            <form action="" method="POST" class="order">
                 {% csrf_token %}
                 <button type="submit" name="action" value="list">Cncel ordering ?</button>
             </form>

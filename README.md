@@ -4,4 +4,4 @@
 pip install -r requirements.txt
 ``` 
 
-![Alt](static/images/bg.jpg)
+![Alt](static/backgroud.png)
